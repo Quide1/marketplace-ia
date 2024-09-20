@@ -1,13 +1,15 @@
 import { PublicationData } from "../types/publicationData";
+
 export class ScrapperServices {
     static startListeningForSSE(
       url: string,
       handleData: (dataUpdater: (prevState: PublicationData[]) => PublicationData[]) => void,
-      handleComunicate: (message: string) => void
+      handleComunicate: (message: string) => void,
+      setSseRef: (Sse: EventSource) => void
     ) {
       const encodedUrl = encodeURIComponent(url);
       const eventSource = new EventSource(`http://localhost:3000/scrapper?link=${encodedUrl}`);
-  
+      setSseRef(eventSource)
       eventSource.onmessage = (event) => {
         try {
           const newData: PublicationData = JSON.parse(event.data);
@@ -21,7 +23,6 @@ export class ScrapperServices {
       eventSource.addEventListener('comunicate', (event) => {
         try {
           const message = JSON.parse(event.data).message;
-          console.log('Llego un mensaje:', message);
           handleComunicate(message);
         } catch (error) {
           console.error('Error parsing comunicate event data:', error);
