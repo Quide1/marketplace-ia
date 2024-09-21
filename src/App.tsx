@@ -138,7 +138,7 @@ function App() {
             </tr>
           ) : (
             data.map((item) => (
-             <TableData {...item}/>
+             <TableData key={item.uuid}{...item}/>
             ))
           )}
         </TableGeneral>

@@ -1,4 +1,5 @@
 export interface PublicationData {
+    uuid:string
     link:string,
     title:string,
     price:string,
