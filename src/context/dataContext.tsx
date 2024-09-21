@@ -1,15 +1,15 @@
 import React, { createContext, useContext } from "react";
 import { useData } from "../hooks/useData"; // Importa tu custom hook
+import { useFavData } from "../hooks/useFavData";
 
-/**
- * Define las keys del objeto que usará el contexto, usando el tipo de useDataState del hook
- */
+// Define las keys del objeto que usará el contexto, usando el tipo de useDataState del hook
 type dataContextType = ReturnType<typeof useData>;
+type favDataContextType = ReturnType<typeof useFavData>;
 
-/**
- * Crea el contexto utilizando los types que va a tener
- */
-export const dataContext = createContext<null | dataContextType>(null);
+type DatasContextType = dataContextType & favDataContextType;
+
+// Crea el contexto utilizando los types que va a tener
+export const dataYFavContext = createContext<DatasContextType | null>(null);
 
 /** Tipas el children */
 type ContextProviderProps = {
@@ -20,7 +20,11 @@ type ContextProviderProps = {
  * Hook para usar el contexto de forma fácil
  */
 export const useDataContext = () => {
-  return useContext(dataContext);
+  const context = useContext(dataYFavContext);
+  if (!context) {
+    throw new Error("useDataContext debe ser usado dentro de un ContextProvider");
+  }
+  return context;
 };
 
 /**
@@ -30,10 +34,16 @@ export const useDataContext = () => {
 export const ContextProvider = ({ children }: ContextProviderProps) => {
   // Usas el custom hook useData
   const dataState = useData();
+  const favDataState = useFavData();
+  
+  const value = {
+    ...dataState,
+    ...favDataState,
+  };
 
   return (
-    <dataContext.Provider value={dataState}>
+    <dataYFavContext.Provider value={value}>
       {children}
-    </dataContext.Provider>
+    </dataYFavContext.Provider>
   );
 };
