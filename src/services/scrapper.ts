@@ -5,7 +5,8 @@ export class ScrapperServices {
       url: string,
       handleData: (dataUpdater: (prevState: PublicationData[]) => PublicationData[]) => void,
       handleComunicate: (message: string) => void,
-      setSseRef: (Sse: EventSource) => void
+      setSseRef: (Sse: EventSource) => void,
+      setDataRef: (newRef: PublicationData) => void
     ) {
       const encodedUrl = encodeURIComponent(url);
       const eventSource = new EventSource(`http://localhost:3000/scrapper?link=${encodedUrl}`);
@@ -14,6 +15,7 @@ export class ScrapperServices {
         try {
           const newData: PublicationData = JSON.parse(event.data);
           handleData((prevState) => [...prevState, newData]);
+          setDataRef(newData)
         } catch (error) {
           console.error('Error parsing event data:', error);
         }
