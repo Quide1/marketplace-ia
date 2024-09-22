@@ -1,23 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
 interface ProgressBarProps {
   currentValue: number;
-  maxValue: number;
+  maxValue: number | null;
 }
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ currentValue, maxValue }) => {
+const ProgressBar: React.FC<ProgressBarProps> = ({
+  currentValue,
+  maxValue,
+}) => {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Simular el efecto de animación
+    if (!maxValue || maxValue === 0) {
+      setProgress(0); // Si no hay maxValue válido, establece el progreso en 0
+      return;
+    }
+
+    const increment = (currentValue / maxValue) * 100;
+    const limitedIncrement = Math.min(increment, 100); // Limitar el progreso al 100%
+
     const interval = setInterval(() => {
       setProgress((prev) => {
-        const increment = (currentValue / maxValue) * 100;
-        if (prev < increment) {
-          return prev + 1;
+        if (prev < limitedIncrement) {
+          return prev + 1; // Incrementar gradualmente el progreso
         } else {
           clearInterval(interval);
-          return increment;
+          return limitedIncrement;
         }
       });
     }, 10);
@@ -26,12 +35,17 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ currentValue, maxValue }) => 
   }, [currentValue, maxValue]);
 
   return (
-    <div className="w-full bg-gray-300 rounded-full h-6">
-      <div
-        className="bg-blue-500 h-6 rounded-full text-white text-xs font-bold flex items-center justify-center transition-all duration-500"
-        style={{ width: `${progress}%` }}
-      >
-        {Math.floor(progress)}%
+    <div className="w-full  flex flex-col gap-2 p-4 items-center justify-center">
+      <p className="text-yellow-700 font-bold">Progreso</p>
+      <div className="w-[400px] ">
+        <div className="w-full bg-gray-300 rounded-full h-6 ">
+          <div
+            className="bg-blue-500 h-6 rounded-full  text-xs font-bold flex items-center justify-center transition-all duration-500 text-yellow-800"
+            style={{ width: `${progress}%` }}
+          >
+            {Math.floor(progress)}%
+          </div>
+        </div>
       </div>
     </div>
   );
