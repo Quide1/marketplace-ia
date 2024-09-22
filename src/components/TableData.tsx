@@ -13,15 +13,22 @@ function TableData({
   title,
   description,
   uuid,
+  isFavorite
 }: PublicationData) {
   const dataContext = useDataContext();
 
   if (!dataContext) return null; // Manejar si no hay contexto (en casos donde el componente no esté envuelto en el provider)
 
-  const { deleteItem, addOfFavData } = dataContext;
+  const { deleteItem, addOfFavData,changeFavToTrue} = dataContext;
+  const handleFavButton = ()=>{
+      addOfFavData({ image, price, link, title, description, uuid,isFavorite:true});
+      changeFavToTrue(uuid)
+  }
+ 
+
   return (
-    <tr className="">
-      <td className="text-sm text-gray-500 w-[150px]">
+    <tr className={ isFavorite? "hidden":""}>
+      <td className="text-sm text-gray-500 w-[150px] ">
         <img
           src={image}
           alt="Car Image"
@@ -57,10 +64,7 @@ function TableData({
           </button>
           <button
             className="hover:text-yellow-600 hover:scale-110 cursor-pointer transition-all"
-            onClick={() => {
-              addOfFavData({ image, price, link, title, description, uuid });
-              deleteItem(uuid)
-            }}
+            onClick={handleFavButton}
           >
             <StarIcon />
           </button>

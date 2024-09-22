@@ -12,15 +12,18 @@ function FavTableData({
   link,
   title,
   description,
-  uuid
+  uuid,
 }: PublicationData) {
   const dataContext = useDataContext();
 
   if (!dataContext) return null; // Manejar si no hay contexto (en casos donde el componente no esté envuelto en el provider)
 
-  const {
-    deleteOfFavData,
-  } = dataContext;
+  const { deleteOfFavData,changeFavToFalse } = dataContext;
+
+  const handleDeleteFavItem = () => {
+    deleteOfFavData(uuid);
+    changeFavToFalse(uuid)
+  };
   return (
     <tr className="">
       <td className="text-sm text-gray-500 w-[150px]">
@@ -51,9 +54,13 @@ function FavTableData({
       </td>
       <td>
         <div className="flex flex-col gap-2 p-2">
-        <button className="hover:text-yellow-600 hover:scale-110 cursor-pointer transition-all" onClick={()=>{deleteOfFavData(uuid)}} ><StarIcon/></button>
+          <button
+            className="hover:text-red-600 hover:rotate-[360deg] hover:scale-110 cursor-pointer transition-all text-yellow-600"
+            onClick={handleDeleteFavItem}
+          >
+            <StarIcon />
+          </button>
         </div>
-      
       </td>
     </tr>
   );

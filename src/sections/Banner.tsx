@@ -3,6 +3,7 @@ import { ScrapperServices } from "../services/scrapper";
 import { LinkIcon, TriangleAlertIcon } from "lucide-react";
 import Loader from "../components/Loader";
 import { useDataContext } from "../context/dataContext";
+import ProgressBar from "../components/ProgressBar";
 function Banner() {
   const [url, setUrl] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
@@ -27,7 +28,7 @@ function Banner() {
     return <p>Loading...</p>; // Mostrar algo antes de devolver null
   }
 
-  const { setData, setDataRef } = dataContext;
+  const { setData, setDataRef,data } = dataContext;
   const setSseRef = (Sse: EventSource) => {
     SseRef.current = Sse;
   };
@@ -102,11 +103,13 @@ function Banner() {
     </button>
   </form>
 
-  <div className="mt-4">
+  <div className="mt-4 items-center justify-center">
     {error && <p className="text-red-500">{error}</p>}
     {message && <p className="text-yellow-700">{message}</p>}
-    {message === "Inicializando..." && <Loader />}
+    {message === "Inicializando..." && <div className="flex flex-col items-center my-4"><Loader /></div> }
   </div>
+
+    <ProgressBar maxValue={cantOfArticles} currentValue={data.length}/>
 </section>
 
   );

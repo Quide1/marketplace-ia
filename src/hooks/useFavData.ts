@@ -20,7 +20,9 @@ export const useFavData = (): useFavDataState => {
     const favDataPrevRef = favDataRef.current;
     favDataRef.current = [...favDataPrevRef, newData];
   };
-
+  const setNewAllFavDataRef=(newData:PublicationData[])=>{
+    favDataRef.current = newData
+  }
   const restoreFavData = () => {
     setFavData(favDataRef.current);
   };
@@ -29,7 +31,7 @@ export const useFavData = (): useFavDataState => {
     const sortedData = [...favData].sort((a, b) => {
       const priceA = parseFloat(a.price.replace(/[^\d.-]/g, ""));
       const priceB = parseFloat(b.price.replace(/[^\d.-]/g, ""));
-      return priceA - priceB; // Orden ascendente
+      return priceA - priceB; 
     });
     setFavData(sortedData);
   };
@@ -53,6 +55,7 @@ export const useFavData = (): useFavDataState => {
   const deleteOfFavData = (uuid: string) => {
     const newFavData = favData.filter((item) => item.uuid !== uuid);
     setFavData(newFavData);
+    setNewAllFavDataRef(newFavData)
   };
 
   return {

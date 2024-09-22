@@ -14,8 +14,9 @@ export class ScrapperServices {
       eventSource.onmessage = (event) => {
         try {
           const newData: PublicationData = JSON.parse(event.data);
-          handleData((prevState) => [...prevState, newData]);
-          setDataRef(newData)
+          const newItem = {...newData,isFavorite:false}
+          handleData((prevState) => [...prevState, newItem]);
+          setDataRef(newItem)
         } catch (error) {
           console.error('Error parsing event data:', error);
         }

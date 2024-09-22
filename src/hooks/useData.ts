@@ -12,6 +12,8 @@ type useDataState = {
   setNewData:(newData : PublicationData[])=>void,
   deleteItem: (uuid: string) => void,
   setData:React.Dispatch<React.SetStateAction<PublicationData[]>>
+  changeFavToTrue: (uuid: string) => void,
+  changeFavToFalse: (uuid: string) => void
 };
 
 export const useData = (): useDataState => {
@@ -22,7 +24,9 @@ export const useData = (): useDataState => {
     const dataPrevRef = dataRef.current;
     dataRef.current = [...dataPrevRef, newData]; 
   };
-  
+  const setAllDataRef=(newData:PublicationData[])=>{
+    dataRef.current=newData
+  }
 
   const restoreData = () => {
     setData(dataRef.current);
@@ -60,9 +64,20 @@ export const useData = (): useDataState => {
     });
   
     console.log('Nuevo conjunto de datos después de eliminar:', newData);
-  
+    setAllDataRef(newData)
     setData(newData);
   };
+    
+    const changeFavToTrue=(uuid:string)=>{
+      const mapChangeFavStatus= data.map((e)=> e.uuid === uuid ?  {...e , isFavorite:true}:  e)
+      setData(mapChangeFavStatus)
+      setAllDataRef(mapChangeFavStatus)
+    }
+    const changeFavToFalse = (uuid:string)=>{
+      const mapChangeFavStatus= data.map((e)=> e.uuid === uuid ?  {...e , isFavorite:false}:  e)
+      setData(mapChangeFavStatus)
+      setAllDataRef(mapChangeFavStatus)
+    }
 
   return {
     data,
@@ -73,6 +88,8 @@ export const useData = (): useDataState => {
     restoreData,
     setDataRef,
     setNewData,
-    deleteItem
+    deleteItem,
+    changeFavToTrue,
+    changeFavToFalse
   };
 };

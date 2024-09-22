@@ -5,5 +5,6 @@ export interface PublicationData {
     price:string,
     description:string
     image:string
+    isFavorite:boolean
 }
 
