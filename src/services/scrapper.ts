@@ -3,13 +3,14 @@ import { PublicationData } from "../types/publicationData";
 export class ScrapperServices {
     static startListeningForSSE(
       url: string,
+      timeScroll:number,
       handleData: (dataUpdater: (prevState: PublicationData[]) => PublicationData[]) => void,
       handleComunicate: (message: string) => void,
       setSseRef: (Sse: EventSource) => void,
       setDataRef: (newRef: PublicationData) => void
     ) {
       const encodedUrl = encodeURIComponent(url);
-      const eventSource = new EventSource(`http://localhost:3000/scrapper?link=${encodedUrl}`);
+      const eventSource = new EventSource(`http://localhost:3000/scrapper?link=${encodedUrl}&timeScroll=${timeScroll}`);
       setSseRef(eventSource)
       eventSource.onmessage = (event) => {
         try {
