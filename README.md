@@ -12,7 +12,7 @@ Este proyecto es una aplicación frontend desarrollada en React, utilizando Tail
 
 ```bash
 # Clona el repositorio
-git clone https://github.com/tu_usuario/nombre_del_repositorio.git
+git clone https://github.com/Quide1/marketplace-ia
 
 # Instala las dependencias
 cd nombre_del_repositorio
