@@ -1,7 +1,7 @@
 import { BotIcon } from "lucide-react";
 import { useDataContext } from "../context/dataContext";
 import { geminiServices } from "../services/gemini";
-import { useEffect, useRef, useState } from "react";
+import {  useRef, useState } from "react";
 import { GenerateTextResponse } from "../types/gemini";
 import IaTableData from "../components/IaTableData";
 import TableGeneral from "../components/TableGeneral";
@@ -91,6 +91,9 @@ function IaQuestion() {
       <div className="space-y-4">
         <p className="text-lg font-semibold text-gray-700">
           Respuesta de la IA
+        </p>
+        <p>
+          {iaResponse.message}
         </p>
         <div className="p-4 border-2 border-dashed border-gray-300 rounded-lg bg-white min-h-[150px] text-gray-500 flex items-center justify-center">
   {iaResponse.articlesResponse.length > 0 && iaResponse.articlesResponse[0].uuid !== '' ? (

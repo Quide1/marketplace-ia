@@ -54,16 +54,13 @@ export const useData = (): useDataState => {
   }
 
   const deleteItem = (uuid: string) => {
-    console.log('Intentando eliminar el uuid:', uuid);
-    console.log('Datos actuales:', data);
+
   
     // Filtrar el elemento con el uuid proporcionado
     const newData = data.filter((item) => {
-      console.log('Comparando:', item.uuid, 'con', uuid);
       return item.uuid !== uuid;
     });
   
-    console.log('Nuevo conjunto de datos después de eliminar:', newData);
     setAllDataRef(newData)
     setData(newData);
   };
