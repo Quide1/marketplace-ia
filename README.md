@@ -1,22 +1,22 @@
-# Proyecto de Scraping con IA en Facebook
+# AI Scraping Project on Facebook
 
-Este proyecto es una aplicación frontend desarrollada en React, utilizando Tailwind CSS para el diseño y Vite para la configuración y optimización. La aplicación se conecta a una inteligencia artificial que realiza scraping de datos en Facebook, permitiendo obtener y presentar la información de una manera estructurada y amigable.
+This project is a frontend application developed with React, using Tailwind CSS for styling and Vite for configuration and optimization. The application connects to an artificial intelligence system that scrapes data from Facebook, enabling the retrieval and presentation of information in a structured and user-friendly way.
 
-## Tecnologías utilizadas
+## Technologies Used
 
-- **React**: Biblioteca para la construcción de interfaces de usuario interactivas y eficientes.
-- **Tailwind CSS**: Framework de utilidades para aplicar estilos de forma rápida y eficiente.
-- **Vite**: Herramienta de desarrollo que permite construir aplicaciones rápidas y optimizadas.
+- **React**: A library for building interactive and efficient user interfaces.
+- **Tailwind CSS**: A utility-first framework for quickly and efficiently applying styles.
+- **Vite**: A development tool for building fast and optimized applications.
 
-## Instalación
+## Installation
 
 ```bash
-# Clona el repositorio
+# Clone the repository
 git clone https://github.com/Quide1/marketplace-ia
 
-# Instala las dependencias
-cd nombre_del_repositorio
+# Install dependencies
+cd repository_name
 npm install
 
-# Ejecuta la aplicación en modo desarrollo
+# Run the application in development mode
 npm run dev
